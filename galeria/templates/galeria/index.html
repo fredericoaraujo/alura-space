@@ -20,7 +20,7 @@
         <ul class="cards__lista">
             {% for info in cards %}
             <li class="card">
-                <a href="{% url 'galeria.imagem' %}">
+                <a href="{% url 'galeria.imagem' info.id %}">
                     <img class="card__imagem" src="{% static '/assets/imagens/galeria/' %}{{ info.foto }}" alt="{{ info.legenda }}">
                 </a>
                 <span class="card__tag">Estrelas</span>

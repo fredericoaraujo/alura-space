@@ -6,5 +6,6 @@ def index(request):
     return render(request, 'galeria/index.html', {"cards": dados})
 
 
-def imagem(request):
-    return render(request, 'galeria/imagem.html')
+def imagem(request, foto_id):
+    fotografia = Fotografia.objects.get(id=foto_id)
+    return render(request, 'galeria/imagem.html', {'fotografia' : fotografia})
