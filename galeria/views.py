@@ -2,7 +2,7 @@ from django.shortcuts import render
 from galeria.models import Fotografia
 
 def index(request):
-    dados = Fotografia.objects.filter(publicada=True)
+    dados = Fotografia.objects.order_by("data_fotografia").filter(publicada=True)
     return render(request, 'galeria/index.html', {"cards": dados})
 
 
