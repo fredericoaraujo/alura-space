@@ -20,3 +20,11 @@ class Fotografia (models.Model):
     
     def __str__(self):
         return self.nome
+    
+    def obter_categoria(self):
+        categoria_nome = None
+        for code, nome in self.OPCOES_CATEGORIA:
+            if self.categoria == code:
+                categoria_nome = nome
+                break
+        return categoria_nome
