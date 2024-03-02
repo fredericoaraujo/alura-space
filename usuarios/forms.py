@@ -1,7 +1,7 @@
 from django import forms
 
 class LoginForms(forms.Form):
-    nome_login = forms.CharField(
+    username = forms.CharField(
         label="Usuário",
         required=True,
         max_length=100,
@@ -9,25 +9,23 @@ class LoginForms(forms.Form):
             attrs={
                 'class' : 'form-control',
                 'placeholder': 'Ex.: João Silva',
-                'autocomplete':"off",
             }
         )
     )
     
-    senha_login = forms.CharField(
+    password = forms.CharField(
         label="Senha",
         required=True,
         max_length=70,
         widget=forms.PasswordInput(
             attrs={
                 'class' : 'form-control',
-                'autocomplete':"off",
             }
         )
     )
 
 class CadastroForms(forms.Form):
-    nome_login = forms.CharField(
+    username = forms.CharField(
         label="Usuário",
         required=True,
         max_length=100,
@@ -35,12 +33,11 @@ class CadastroForms(forms.Form):
             attrs={
                 'class' : 'form-control',
                 'placeholder': 'Ex.: João Silva',
-                'autocomplete':"off",
             }
         )
     )
     
-    email_login = forms.EmailField(
+    email = forms.EmailField(
         label="E-mail",
         required=True,
         max_length=100,
@@ -48,32 +45,39 @@ class CadastroForms(forms.Form):
             attrs={
                 'class' : 'form-control',
                 'placeholder': 'Ex.: joaosilva@xpto.com.br',
-                'autocomplete':"off",
             }
         )
     )
     
-    senha_login = forms.CharField(
+    password = forms.CharField(
         label="Senha",
         required=True,
         max_length=70,
         widget=forms.PasswordInput(
             attrs={
                 'class' : 'form-control',
-                'autocomplete':"off",
             }
         )
     )
     
-    confirma_senha_login = forms.CharField(
+    confirm_password = forms.CharField(
         label="Confirmação de Senha",
         required=True,
         max_length=70,
         widget=forms.PasswordInput(
             attrs={
                 'class' : 'form-control',
-                'autocomplete':"off",
             }
         )
     )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
+
+        if password and confirm_password and password != confirm_password:
+            raise forms.ValidationError("As senhas não coincidem.")
+
+        return cleaned_data
 
